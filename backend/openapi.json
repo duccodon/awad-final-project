@@ -1,0 +1,347 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/users/me": {
+      "get": {
+        "operationId": "UsersController_getMe",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "UsersController_getUsers",
+        "parameters": [
+          {
+            "name": "id",
+            "required": false,
+            "in": "path",
+            "description": "get user with a specific id",
+            "schema": {
+              "example": 1234,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "The nymber of entries returned par page",
+            "schema": {
+              "example": "10",
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "The nymber of entries returned par page",
+            "schema": {
+              "example": "10",
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ],
+        "summary": "Fetch user by id",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "operationId": "AuthController_signIn",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User signed in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Sign in to an existing user account",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/google-authentication": {
+      "post": {
+        "operationId": "AuthController_googleAuthentication",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "description": "Endpoint to create a new user account",
+        "operationId": "AuthController_createNewUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User account created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "msg": "Signup successful"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new user account",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "description": "Endpoint to refresh access token, send refresh token in cookie",
+        "operationId": "AuthController_refresh",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Access token refreshed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1dWlkLTEyMzQiLCJpYXQiOjE2ODgwODc2MDAsImV4cCI6MTY4ODA5MTIwMH0.XYZ"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "refreshToken": []
+          },
+          {
+            "refreshToken": []
+          }
+        ],
+        "summary": "Refresh access token using refresh token",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/signout": {
+      "post": {
+        "operationId": "AuthController_signOut",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/upload/file": {
+      "post": {
+        "operationId": "UploadController_uploadFile",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "multipart/form-data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authentication",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Upload a file",
+        "tags": [
+          "Upload"
+        ]
+      }
+    },
+    "/dashboard/admin": {
+      "get": {
+        "operationId": "DashboardController_getAdminDashboard",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    },
+    "/dashboard/user": {
+      "get": {
+        "operationId": "DashboardController_getUserDashboard",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Nest Auth API Documentation",
+    "description": "The description of my application",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "http://localhost:3600/api"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "cookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "refreshToken"
+      },
+      "accessToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "SignInDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "SignInResponseDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "title": "First Name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "title": "Last Name",
+            "example": "Doe"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username",
+            "example": "johndoe"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email",
+            "example": "johndoe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password",
+            "example": "strongPassword123"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "username",
+          "email",
+          "password"
+        ]
+      }
+    }
+  }
+}
